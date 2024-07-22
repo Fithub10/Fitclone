@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="s">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>DeportesUCAB | Login</title>
+	<link rel="manifest" href="manifest.json">
+	<link rel="stylesheet" type="text/css" href="stylesheets/login.css">
+	<link rel="stylesheet" href="stylesheets/zmdi/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" href="stylesheets/sweetalert2.css">
+	<link rel="shortcut icon" href="images/logo.png">
+    <script type="text/javascript" src="javascripts/request.js"></script>
+    <script>new Cookie().hasAuth();</script>
+</head>
+<body>
+    <div class="cover-loader">
+        <div class="loader"></div>
+    </div>
+
+	<div class="login-box">
+		<div class="login-header">
+			<div class="login-title">
+				Iniciar sesión
+			</div>
+		</div>
+		<div class="login-content">
+			<div class="login-text">
+				<div class="login-text-icon">
+					<i class="zmdi zmdi-account"></i>
+				</div>
+				<div class="text-label" id="user_label">
+					Correo
+				</div>
+				<input id = "usermail" type="text" name="" onfocus="splitLabel('user_label')" onfocusout="unSplitLabel('user_label',this)">
+			</div>
+			<div class="login-text">
+				<div class="login-text-icon">
+					<i class="zmdi zmdi-lock"></i>
+				</div>
+				<div class="text-label" id="password_label">
+					Contraseña
+				</div>
+				<input id ="userpass" type="password" name="" onfocus="splitLabel('password_label')" onfocusout="unSplitLabel('password_label',this)">
+			</div>
+		</div>
+		<div class="login-footer">
+			<div class="login-button" onclick="sendLogin()">
+				Iniciar sesión
+			</div>
+			<div class="division">
+			</div>
+			<div class="login-button clear">
+				Registrarse
+			</div>
+		</div>
+
+
+	</div>
+	<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/sweetalert2.min.js"></script>
+	<script type="text/javascript" src="javascripts/login.js"></script>
+	<script src="javascripts/manup.min.js"></script>
+</body>
+</html>

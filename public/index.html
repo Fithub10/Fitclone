@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DeportesUCAB</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="images/logo.png">
+    <link rel="stylesheet" href="stylesheets/main.css">
+    <link rel="stylesheet" href="stylesheets/zmdi/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="stylesheets/sweetalert2.css">
+    <script src="javascripts/request.js"></script>
+    <script>new Cookie().hasntAuth();</script>
+</head>
+<body>
+<div class="cover-loader show">
+    <div class="loader"></div>
+</div>
+<!-- SideBar -->
+<section class="full-box cover dashboard-sideBar">
+    <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
+    <div class="full-box dashboard-sideBar-ct">
+        <!--SideBar Title -->
+        <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
+            <img src="images/logobrand.png" alt="" class="logo-sidebar"> <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
+        </div>
+        <!-- SideBar User info -->
+        <div class="full-box dashboard-sideBar-UserInfo">
+            <figure class="full-box">
+                <img src="images/user.png" alt="UserIcon" id="imagen-usuario">
+                <figcaption class="text-center text-titles" id="nombre-usuario"></figcaption>
+            </figure>
+            <ul class="full-box list-unstyled text-center">
+                <li>
+                    <a href="#!">
+                        <i class="zmdi zmdi-settings"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#!" class="btn-exit-system">
+                        <i class="zmdi zmdi-power"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- SideBar Menu -->
+        <ul class="list-unstyled full-box dashboard-sideBar-Menu">
+            <li>
+                <a onclick="backLevel(true)">
+                    <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Inicio
+                </a>
+            </li>
+            <li>
+                <a class="btn-sideBar-SubMenu">
+                    <i class="zmdi zmdi-star zmdi-hc-fw"></i>Competiciones<i class="zmdi zmdi-caret-down pull-right"></i>
+                </a>
+                <ul class="list-unstyled full-box">
+                    <li>
+                        <a href=""> Fútbol</a>
+                    </li>
+                    <!---<li>
+                        <a href=""> Futsal</a>
+                    </li>
+                    <li>
+                        <a href="l"> Rugby</a>
+                    </li>
+                    <li>
+                        <a href=""> Béisbol</a>
+                    </li>
+                    <li>
+                        <a href=""> Baloncesto</a>
+                    </li>
+                    <li>
+                        <a href=""> Voleibol</a>
+                    </li>-->
+                </ul>
+            </li>
+            <li class="rol1">
+                <a href="#crear-competicion" class="btn-sideBar-SubMenu" onclick="showCreador()">
+                    <i class="zmdi zmdi-plus zmdi-hc-fw"></i>Crear competición</i>
+                </a>
+            </li>
+            <li>
+                <a href="#vista-equipos" class="btn-sideBar-SubMenu" onclick="showVistaEquipos()">
+                    <i class="zmdi zmdi-accounts zmdi-hc-fw"></i> Equipos</i>
+                </a>
+            </li>
+            <li>
+                <a href="#!" class="btn-sideBar-SubMenu">
+                    <i class="zmdi zmdi-accounts-outline zmdi-hc-fw"></i> Mi equipo</i>
+                </a>
+            </li>
+            <li>
+                <a href="#!" class="btn-sideBar-SubMenu">
+                    <i class="zmdi zmdi-account zmdi-hc-fw"></i> Perfil</i>
+                </a>
+            </li>
+            <li>
+                <a href="#!" class="btn-sideBar-SubMenu">
+                    <i class="zmdi zmdi-power zmdi-hc-fw"></i> Salir</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Content page-->
+<section class="full-box dashboard-contentPage">
+    <!-- NavBar -->
+    <nav class="full-box dashboard-Navbar">
+        <ul class="full-box list-unstyled text-right">
+            <li class="pull-left">
+                <a class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+            </li>
+            <li>
+                <a class="btn-Notifications-area">
+                    <i class="zmdi zmdi-notifications-none"></i>
+                    <span class="badge">7</span>
+                </a>
+            </li>
+            <li>
+                <a class="btn-search">
+                    <i class="zmdi zmdi-search"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="home">
+
+        <!---NOMBRE E ICONO ENCABEZADO--->
+        <div class="header-detail-title">
+            <div class="detail-exit">
+                <i id ="inicio-icon" class="zmdi zmdi-view-dashboard show"></i>
+                <i id ="creador-icon" class="zmdi zmdi-plus"></i>
+                <i id ="equipos-icon" class="zmdi zmdi-accounts"></i>
+                <i id ="back-icon" onclick="backToLast()" class="zmdi zmdi-arrow-left"></i>
+            </div>
+            <div id="detail-title" class="detail-title">
+                Inicio
+            </div>
+
+        </div>
+        <!---INICIO--->
+        <div id = "eventos-content" class="eventos-content">
+
+        </div>
+        <!---DETALLE DE EVENTO--->
+        <div id = "competition-detail" class="competition-detail">
+            <div class="rol1">
+                <div class="more-button send" onclick="cambiaCrearFases(getEventFromURL())">
+                    <i class="zmdi zmdi-edit"></i>
+                </div>
+            </div>
+
+            <div id ="header-detail" class="header-detail">
+                <div id = "inicio" class="header-detail-option selected" onclick="changeViewTo(this)">
+                    INICIO
+                </div>
+                <div id = "partidos" class="header-detail-option" onclick="changeViewTo(this)">
+                    PARTIDOS
+                </div>
+                <div id = "clasificacion"  class="header-detail-option" onclick="changeViewTo(this)">
+                    CLASIFICACIÓN
+                </div>
+                <div id = "estadisticas"  class="header-detail-option" onclick="changeViewTo(this)">
+                    ESTADÍSTICAS
+                </div>
+                <div id = "jugadores" class="header-detail-option" onclick="changeViewTo(this)">
+                    JUGADORES
+                </div>
+            </div>
+
+            <div id="inicio-content" class="detail-content inicio-content">
+                <div class="post-card" id="event-card-content-detail">
+                    <div class="card-preview-image">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            Lorem ipsum sit ammet
+                        </div>
+                        <div class="card-data">
+                            <div class="card-date-icon">
+                                <div class="card-icon"><i class="zmdi zmdi-calendar"></i></div>
+                            </div>
+                            <div class="card-place-icon">
+                                <div class="card-icon">
+                                    <i class="zmdi zmdi-pin"></i>
+                                </div>
+                            </div>
+                            <div class="card-date">
+                                <div class="card-fulldate"></div>
+                            </div>
+                            <div class="card-place">
+                                <div class="location">
+                                    UCAB
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="caracteristicas-content">
+
+                </div>
+            </div>
+            <div id="partidos-content" class="detail-content partidos-content">
+
+            </div>
+            <div id="clasificacion-content"  class="detail-content clasificacion-content">
+
+            </div>
+            <div id="estadisticas-content"  class="detail-content estadisticas-content">
+
+
+            </div>
+            <div id="jugadores-content"  class="detail-content jugadores-content">
+
+            </div>
+        </div>
+
+        <!---CREAR EVENTOS--->
+        <div id = "creador-content" class="creador-content">
+            <div class="post-card create-form">
+                <div class="create-form-title">
+                    Datos generales
+                </div>
+                <div class="create-form-content">
+                    <div class="create-content-container">
+                        <div id = "crear-imagen-competicion" class="crear-imagen-competicion">
+                            <div class="crear-imagen-competicion-etiqueta" id="crear-imagen-competicion-etiqueta">
+                                Seleccionar imagen
+                            </div>
+                        </div>
+                    </div>
+                    <div class="create-content-container">
+                        <div class="input-container">
+                            <div class="input-field">
+                                <input id="crear-titulo-competicion" type="text" class="create-input validate">
+                                <label for="crear-titulo-competicion">Nombre de la competición</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="create-content-container">
+                        <div class="input-container">
+                            <div class="input-field">
+                                <input id="crear-fecha-inicio-competicion" type="text" class="create-input fecha-input validate">
+                                <label for="crear-fecha-inicio-competicion">Fecha de inicio</label>
+                            </div>
+                        </div>
+                        <div class="input-container">
+                            <div class="input-field">
+                                <input id="crear-fecha-fin-competicion" type="text" class="create-input fecha-input validate">
+                                <label for="crear-fecha-fin-competicion">Fecha de fin</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="create-content-container">
+                        <div class="input-container">
+                            <div class="input-field">
+                                <input id="lugar-realizacion" type="text" class="create-input validate">
+                                <label for="lugar-realizacion">Lugar de realización</label>
+                            </div>
+                        </div>
+                        <div class="gender-selector">
+                            <div class="create-gender blue" onclick="changeGender(this)"><i class="zmdi zmdi-male-alt"></i></div>
+                            <div class="create-gender red" onclick="changeGender(this)"><i class="zmdi zmdi-female"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-card create-form">
+                <div class="create-form-title">
+                    Datos específicos
+                </div>
+                    <div class="create-form-content" id="caracteristicas-container">
+
+                    </div>
+                    <div class="create-form-content">
+                        <div class="more-button" onclick="addCaracteristica()">
+                            <i class="zmdi zmdi-plus"></i>
+                        </div>
+                    </div>
+            </div>
+            <div class="post-card create-form">
+                <div class="create-form-title">
+                    Equipos
+                </div>
+                <div class="create-form-content" id="create-equipos-container">
+
+                </div>
+                <div class="create-form-content" onclick="addTeam()">
+                    <div class="more-button">
+                        <i class="zmdi zmdi-plus"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="more-button send" onclick="createCompetition()">
+                <i class="zmdi zmdi-check"></i>
+            </div>
+        </div>
+
+        <!---CREAR FASES--->
+        <div id = "creador-fases-content" class="creador-fases-content">
+            <div class="post-card create-form">
+
+                <div class="create-form-title">
+                    Crea una fase
+                </div>
+                <div class="create-form-content">
+                    <div class="loader" id="loader-fases"></div>
+                    <div class="create-content-container">
+                        <div class="input-container">
+                            <div class="input-field">
+                                <input id="crear-fase-competicion" type="text" class="create-input validate">
+                                <label for="crear-fase-competicion">Nombre de la fase</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="create-content-container">
+                        <div class="fase-selector">
+                            <div class="create-fase clasificacion" onclick="changeFase(this)">Clasificación</div>
+                            <div class="create-fase eliminatoria" onclick="changeFase(this)">Eliminatoria</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rol1">
+                    <div class="more-button" onclick="addFase()">
+                        <i class="zmdi zmdi-plus"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="fases-creadas">
+
+            </div>
+            <div class="rol1">
+                <div class="more-button send" onclick="backLevel(true)">
+                    <i class="zmdi zmdi-check"></i>
+                </div>
+            </div>
+        </div>
+
+        <!---CREAR PARTIDOS--->
+        <div id = "creador-partidos-content" class="creador-partidos-content">
+            <div class="post-card create-form" id="formulario-creador-partidos">
+
+            </div>
+            <div id="partidos-creados">
+
+            </div>
+            <div class="rol1">
+                <div class="more-button send" onclick="backToLast()">
+                    <i class="zmdi zmdi-check"></i>
+                </div>
+            </div>
+        </div>
+
+        <!---MODIFICAR PARTIDOS--->
+        <div id = "modificar-partidos-content" class="modificar-partidos-content">
+
+            <div id="resultado-actual">
+
+            </div>
+            <div class="agregar-situacion">
+                <div class="post-card create-form rol1">
+                    <div class="create-form-title">
+                        Agregar situación
+                    </div>
+                    <div class="create-content-container">
+                        <div id="add-inicio-boton" class="inicio-partido-boton yellow" onclick="insertarSituacion('inicio', 0)">
+                            Inicio
+                            <i class="zmdi zmdi-time-interval"></i>
+                        </div>
+                        <div class="inicio-partido-boton blue" onclick="selectPlayers(true)">
+                            Gol Local
+                            <i class="zmdi zmdi-dribbble"></i>
+                        </div>
+                        <div class="inicio-partido-boton gray" onclick="selectPlayers(false)">
+                            Gol Visitante
+                            <i class="zmdi zmdi-dribbble"></i>
+                        </div>
+                        <div id="add-final-boton" class="inicio-partido-boton red"  onclick="insertarSituacion('fin', 90)">
+                            Fin
+                            <i class="zmdi zmdi-timer-off"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rol1">
+                <div class="more-button send" onclick="backToLast()">
+                    <i class="zmdi zmdi-check"></i>
+                </div>
+            </div>
+        </div>
+
+        <!---INFORMACIÓN DE LOS JUGADORES--->
+        <div id = "jugador-info-content" class="creador-partidos-content">
+            <div class="profile-card">
+                <div class="profile-card-image">
+                    <div class="alpha-card-image"></div>
+
+                </div>
+                <div class="profile-image-stat">
+                    <img src="images/pic09.jpg" alt="UserIcon"
+                         id="profile-image-card" class="user-image">
+                </div>
+                <div class="profile-stats">
+                    <div class="stat"></div>
+                    <div class="stat">
+
+                        <div class="icon-stat">
+                            <i class="zmdi zmdi-account"></i>
+                        </div>
+                        <div class="data-stat" id="username-stat">
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="icon-stat">
+                            <i class="zmdi zmdi-calendar"></i>
+                        </div>
+                        <div class="data-stat" id="cedula-stat">
+                        </div>
+                    </div>
+                    <div class="stat">
+
+                        <div class="icon-stat">
+                            <i class="zmdi zmdi-account-box-mail"></i>
+                        </div>
+                        <div class="data-stat" id="fecha-stat">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!---VER EQUIPOS--->
+
+        <div id = "vista-equipos-content" class="creador-partidos-content">
+            <div class="player-card-container" id="teams-info-container">
+
+            </div>
+            <div class="post-card create-form rol1">
+                <div class="create-form-title">
+                    Agregar equipo
+                </div>
+                <div class="create-form-content">
+
+                    <div class="create-content-container" style="flex-shrink: 0">
+                        <div id = "crear-imagen-equipo" class="crear-imagen-equipo">
+                            <div class="crear-imagen-competicion-etiqueta mini" id="crear-imagen-equipo-etiqueta">
+                                Seleccionar imagen
+                            </div>
+                        </div>
+                        <div class="input-container menor">
+                            <div class="input-field">
+                                <input id="crear-nombre-equipo" type="text" class="create-input validate">
+                                <label id="crear-nombre-equipo-label" for="crear-nombre-equipo">Nombre del equipo</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="create-content-container">
+                        <div class="gender-selector" id="team-gender">
+                            <div class="create-gender blue" onclick="changeGenderTeam(this)"><i class="zmdi zmdi-male-alt"></i></div>
+                            <div class="create-gender red" onclick="changeGenderTeam(this)"><i class="zmdi zmdi-female"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rol">
+                    <div class="more-button" onclick="addEquipo()">
+                        <i class="zmdi zmdi-plus"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!---VER INFORMACIÓN DE LOS EQUIPOS--->
+
+        <div id = "consultar-equipo-content" class="creador-partidos-content">
+                <div class="post-card results" id="tabla-juadores">
+
+                </div>
+                <div class="post-card results" id="tabla-partidos">
+
+                </div>
+            <div class="rol1">
+                <div class="more-button send" onclick="accederAsignarJugadores()">
+                    <i class="zmdi zmdi-swap"></i>
+                </div>
+            </div>
+        </div>
+
+        <!---AÑADIR JUGADORES--->
+
+        <div id = "asignar-jugadores-content" class="creador-partidos-content">
+            <div class="post-card results" id="agentes-libres">
+
+            </div>
+            <div class="post-card results" id="agentes-fijos">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="full-box Notifications-area">
+    <div class="full-box Notifications-bg btn-Notifications-area"></div>
+    <div class="full-box Notifications-body">
+        <div class="Notifications-body-title text-titles text-center">
+            Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
+        </div>
+        <div class="list-group">
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="zmdi zmdi-alert-triangle"></i>
+                </div>
+                <div class="row-content">
+                    <div class="least-content">17m</div>
+                    <h4 class="list-group-item-heading">Tile with a label</h4>
+                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="zmdi zmdi-alert-octagon"></i>
+                </div>
+                <div class="row-content">
+                    <div class="least-content">15m</div>
+                    <h4 class="list-group-item-heading">Tile with a label</h4>
+                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="zmdi zmdi-help"></i>
+                </div>
+                <div class="row-content">
+                    <div class="least-content">10m</div>
+                    <h4 class="list-group-item-heading">Tile with a label</h4>
+                    <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="zmdi zmdi-info"></i>
+                </div>
+                <div class="row-content">
+                    <div class="least-content">8m</div>
+                    <h4 class="list-group-item-heading">Tile with a label</h4>
+                    <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!--====== Scripts -->
+
+<script src="javascripts/jquery.min.js"></script>
+<script src="javascripts/sweetalert2.min.js"></script>
+<script src="materialize/js/materialize.min.js"></script>
+<script src="./javascripts/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="javascripts/utils.js"></script>
+
+<script src="javascripts/managers.js"></script>
+<script src="javascripts/cards.js"></script>
+<script src="javascripts/compeitions.js"></script>
+<script src="javascripts/create-competitions.js"></script>
+<script src="javascripts/create-phases.js"></script>
+<script src="javascripts/create-partidos.js"></script>
+<script src="javascripts/modificar-partidos.js"></script>
+<script src="javascripts/informacion-jugador.js"></script>
+<script src="javascripts/vista-equipos.js"></script>
+<script src="javascripts/consultar-equipo.js"></script>
+<script src="javascripts/asignar-jugadores.js"></script>
+<script src="javascripts/main.js"></script>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+<script src="javascripts/upload-image-manager.js"></script>
+<script src="javascripts/manup.min.js"></script>
+
+<!-----
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/material.min.js"></script>
+<script src="./js/ripples.min.js"></script>
+
+-->
+</body>
+</html>
